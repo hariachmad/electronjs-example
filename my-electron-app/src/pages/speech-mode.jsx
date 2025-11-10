@@ -20,9 +20,9 @@ export const SpeechMode = () => {
   }, [isTalking]);
 
   useEffect(() => {
-    window.electronAPI.onReply((data) => {
-      console.log("Balasan dari main:", data);
-    });
+    // window.electronAPI.onReply((data) => {
+    //   console.log("Balasan dari main:", data);
+    // });
 
     socket.on("connect", () => {
       console.log("✅ Terhubung ke server:", socket.id);

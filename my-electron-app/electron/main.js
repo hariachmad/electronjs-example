@@ -48,6 +48,5 @@ app.whenReady().then(() => {
 })
 
 ipcMain.on('message-from-renderer', (event, data) => {
-  console.log('Pesan diterima di main:', data);
   event.reply('reply-from-main', 'Halo dari main process!');
 });
