@@ -1,7 +1,7 @@
 import { Volume2, Sun } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-export const ReminderDashboard= () => {
+export const MedicalActivityReminder = () => {
     const navigate = useNavigate();
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F9F6ED]">

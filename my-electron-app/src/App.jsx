@@ -8,11 +8,13 @@ import {
   MyMedicineMonth,
   MyMedicineToday,
   MyMedicineWeek,
-  ReminderDashboard,
-  SpeechMode,
-} from "./pages";
+} from "./pages/medical-activity-reminder";
 
 import { RootLayout } from "./layout";
+import { MedicalActivityReminder, SpeechMode } from "./pages";
+import ActivityReminder from "./pages/activity-reminder/activity-reminder";
+import { HealthMonthly, HealthToday, HealthWeekly, SocialActivityMonthly, SocialActivityWeekly } from "./pages/activity-reminder";
+import { SocialActivityToday } from "./pages/activity-reminder/social-activity-today";
 
 function App() {
   const router = createBrowserRouter([
@@ -25,37 +27,89 @@ function App() {
         },
         {
           path: "/reminder",
-          element: <ReminderDashboard />,
+          element: <MedicalActivityReminder />,
         },
         {
           path: "/medical-reminder",
           element: <MedicalReminder />,
         },
         {
-          path: "/my-medicine-today",
+          path: "/activity-reminder",
+          element: <ActivityReminder />,
+        },
+
+        // ======================
+        // MEDICINE SCHEDULE
+        // ======================
+        {
+          path: "/medicine-schedule-today",
           element: <MyMedicineToday />,
         },
         {
-          path: "/my-medicine-week",
+          path: "/medicine-schedule-weekly",
           element: <MyMedicineWeek />,
         },
         {
-          path: "/my-medicine-month",
+          path: "/medicine-schedule-monthly",
           element: <MyMedicineMonth />,
         },
         {
-          path: "/doctor-appointment-today",
+          path: "/medicine-schedule-specific-day",
+          element: <MyMedicineToday />,
+        },
+
+        // ======================
+        // DOCTOR APPOINTMENT
+        // ======================
+        {
+          path: "/doctor-appointment-schedule-today",
           element: <DoctorAppointmentToday />,
         },
         {
-          path: "/doctor-appointment-week",
+          path: "/doctor-appointment-schedule-weekly",
           element: <DoctorAppointmentWeek />,
         },
         {
-          path: "/doctor-appointment-month",
+          path: "/doctor-appointment-schedule-monthly",
           element: <DoctorAppointmentMonth />,
         },
-      ],
+        {
+          path: "/doctor-appointment-schedule-specific-day",
+          element: <DoctorAppointmentToday />,
+        },
+
+        // ======================
+        // HEALTH
+        // ======================
+        {
+          path: "/health-today",
+          element: <HealthToday />,
+        },
+        {
+          path: "/health-weekly",
+          element: <HealthWeekly />,
+        },
+        {
+          path: "/health-monthly",
+          element: <HealthMonthly />,
+        },
+
+        // ======================
+        // HEALTH
+        // ======================
+        {
+          path: "/social-activity-today",
+          element: <SocialActivityToday />,
+        },
+        {
+          path: "/social-activity-weekly",
+          element: <SocialActivityWeekly />,
+        },
+        {
+          path: "/social-activity-monthly",
+          element: <SocialActivityMonthly />,
+        }
+      ]
     },
   ]);
 
