@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
-export const SocialActivityMonthly = () => {
+export const SocialActivityMonthly = ()=>{
   const [activeView, setActiveView] = useState('Month');
   
   const weeks = [
@@ -14,7 +14,8 @@ export const SocialActivityMonthly = () => {
   const dayHeaders = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
   return (
-    <div className="min-h-screen bg-amber-50 p-4 flex items-center justify-center">
+    // <div className="min-h-screen bg-amber-50 p-4 flex items-center justify-center">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
       <div className="w-full max-w-2xl bg-gradient-to-br from-orange-50 to-amber-50 rounded-3xl shadow-lg p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">

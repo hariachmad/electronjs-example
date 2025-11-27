@@ -1,20 +1,24 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import {
-  DoctorAppointmentMonth,
-  DoctorAppointmentToday,
-  DoctorAppointmentWeek,
-  MedicalReminder,
-  MyMedicineMonth,
-  MyMedicineToday,
-  MyMedicineWeek,
-} from "./pages/medical-activity-reminder";
 
 import { RootLayout } from "./layout";
-import { MedicalActivityReminder, SpeechMode } from "./pages";
-import ActivityReminder from "./pages/activity-reminder/activity-reminder";
-import { HealthMonthly, HealthToday, HealthWeekly, SocialActivityMonthly, SocialActivityWeekly } from "./pages/activity-reminder";
-import { SocialActivityToday } from "./pages/activity-reminder/social-activity-today";
+import { SpeechMode } from "./pages/speech-mode";
+import { MedicalActivityReminder } from "./pages/medical-activity-reminder";
+import { MedicalReminder } from "./pages/medical-activity-reminder/medical-reminder";
+import { ActivityReminder } from "./pages/activity-reminders/activity-reminder";
+import { MyMedicineToday } from "./pages/medical-activity-reminder/my-medicine-today";
+import { MyMedicineWeek } from "./pages/medical-activity-reminder/my-medicine-weekly";
+import { MyMedicineMonth } from "./pages/medical-activity-reminder/my-medicine-monthly";
+import { DoctorAppointmentToday } from "./pages/medical-activity-reminder/doctor-appointment-today";
+import { DoctorAppointmentWeek } from "./pages/medical-activity-reminder/doctor-appointment-weekly";
+import { DoctorAppointmentMonthly } from "./pages/medical-activity-reminder/doctor-appointment-monthly";
+import { HealthToday } from "./pages/activity-reminders/health-today";
+import { HealthWeekly } from "./pages/activity-reminders/health-weekly";
+import { HealthMonthly } from "./pages/activity-reminders/health-monthly";
+import { SocialActivityToday } from "./pages/activity-reminders/social-activity-today";
+import { SocialActivityWeekly } from "./pages/activity-reminders/social-activity-weekly";
+import { SocialActivityMonthly } from "./pages/activity-reminders/social-activity-monthly";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -71,7 +75,7 @@ function App() {
         },
         {
           path: "/doctor-appointment-schedule-monthly",
-          element: <DoctorAppointmentMonth />,
+          element: <DoctorAppointmentMonthly />,
         },
         {
           path: "/doctor-appointment-schedule-specific-day",
@@ -106,7 +110,7 @@ function App() {
           element: <SocialActivityWeekly />,
         },
         {
-          path: "/social-activity-monthly",
+          path: "/social-activity-monthlys",
           element: <SocialActivityMonthly />,
         }
       ]

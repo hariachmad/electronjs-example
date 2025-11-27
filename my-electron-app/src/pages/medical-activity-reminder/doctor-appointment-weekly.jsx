@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export const DoctorAppointmentWeek = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const activeTab = "Week";
 
   // Data jadwal mingguan
@@ -17,7 +17,8 @@ export const DoctorAppointmentWeek = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f9f7f2] flex flex-col items-center py-8 rounded-[2rem] shadow-md max-w-md mx-auto relative">
+    // <div className="min-h-screen bg-[#f9f7f2] flex flex-col items-center py-8 rounded-[2rem] shadow-md max-w-md mx-auto relative">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
       {/* Header */}
       <div className="w-full flex justify-between items-center px-3">
         <button className="p-2 bg-white rounded-full shadow">
@@ -34,15 +35,14 @@ export const DoctorAppointmentWeek = () => {
           <div className="flex mt-2 bg-gray-100 rounded-full p-1">
             {["Today", "Week", "Month"].map((tab) => (
               <button
-                onClick={()=>{
-                    navigate(`/doctor-appointment-${tab.toLowerCase()}`)
+                onClick={() => {
+                  navigate(`/doctor-appointment-${tab.toLowerCase()}`)
                 }}
                 key={tab}
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  activeTab === tab
+                className={`px-3 py-1 rounded-full text-sm font-medium ${activeTab === tab
                     ? "bg-[#0D5C63] text-white"
                     : "text-gray-600 hover:bg-gray-200"
-                }`}
+                  }`}
               >
                 {tab}
               </button>
@@ -82,11 +82,10 @@ export const DoctorAppointmentWeek = () => {
           {schedule.map((day) => (
             <div
               key={day.date}
-              className={`min-h-[110px] p-2 border-r border-[#E0E0E0] last:border-none ${
-                day.day === "THU"
+              className={`min-h-[110px] p-2 border-r border-[#E0E0E0] last:border-none ${day.day === "THU"
                   ? "bg-[#E6F5F5] border border-[#CBEAEA] rounded-lg"
                   : ""
-              }`}
+                }`}
             >
               {day.events.length > 0 ? (
                 day.events.map((event, i) => (

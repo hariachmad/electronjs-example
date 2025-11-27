@@ -1,7 +1,7 @@
 import React from 'react';
 import { Users, Heart, FileText, MapPin } from 'lucide-react';
 
-export default function ActivityReminder() {
+export const ActivityReminder = () => {
   const activities = [
     { icon: Users, label: 'Social', color: 'text-blue-500' },
     { icon: Heart, label: 'Health', color: 'text-teal-500' },
@@ -10,7 +10,8 @@ export default function ActivityReminder() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-6 flex items-center justify-center">
+    // <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 p-6 flex items-center justify-center">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">

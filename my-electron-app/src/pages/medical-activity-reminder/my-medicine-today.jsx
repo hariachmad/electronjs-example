@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ArrowLeft, Home, Pill, Plus, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export const MyMedicineToday = () => {
+export const MyMedicineToday =  () => {
   const [activeTab, setActiveTab] = useState("Today");
   const navigate = useNavigate();
 
@@ -13,7 +13,8 @@ export const MyMedicineToday = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF6EB] flex flex-col items-center p-6 rounded-[2rem] shadow-md max-w-md mx-auto">
+    // <div className="min-h-screen bg-[#FAF6EB] flex flex-col items-center p-6 rounded-[2rem] shadow-md max-w-md mx-auto">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
       {/* Header */}
       <div className="w-full flex justify-between items-center">
         <button className="p-2 bg-white rounded-full shadow">

@@ -24,7 +24,8 @@ export const DoctorAppointmentToday = () => {
   const activeTab = "Today";
 
   return (
-    <div className="min-h-screen bg-[#f9f7f2] flex flex-col items-center py-8 rounded-[2rem] shadow-md max-w-md mx-auto relative">
+    // <div className="min-h-screen bg-[#f9f7f2] flex flex-col items-center py-8 rounded-[2rem] shadow-md max-w-md mx-auto relative">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
       {/* Header */}
       <div className="w-full flex justify-between items-center px-2">
         <button className="p-2 bg-white rounded-full shadow">
@@ -42,12 +43,11 @@ export const DoctorAppointmentToday = () => {
             {["Today", "Week", "Month"].map((tab) => (
               <button
                 key={tab}
-                onClick={()=>navigate(`/my-medicine-${tab.toLowerCase()}`)}
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  activeTab === tab
+                onClick={() => navigate(`/my-medicine-${tab.toLowerCase()}`)}
+                className={`px-3 py-1 rounded-full text-sm font-medium ${activeTab === tab
                     ? "bg-[#4db6ac] text-white"
                     : "text-gray-600 hover:bg-gray-200"
-                }`}
+                  }`}
               >
                 {tab}
               </button>

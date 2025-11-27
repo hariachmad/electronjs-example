@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export const DoctorAppointmentMonth = () => {
+export const DoctorAppointmentMonthly = () => {
   const navigate = useNavigate();
   const activeTab = "Month";
   const selectedDate = 23;
@@ -16,7 +16,8 @@ export const DoctorAppointmentMonth = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f9f7f2] flex flex-col items-center py-8 rounded-[2rem] shadow-md max-w-md mx-auto relative">
+    // <div className="min-h-screen bg-[#f9f7f2] flex flex-col items-center py-8 rounded-[2rem] shadow-md max-w-md mx-auto relative">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
       {/* Header */}
       <div className="w-full flex justify-between items-center px-3">
         <button className="p-2 bg-white rounded-full shadow">
@@ -35,11 +36,10 @@ export const DoctorAppointmentMonth = () => {
               <button
                 onClick={() => navigate(`/doctor-appointment/${tab}`)}
                 key={tab}
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  activeTab === tab
+                className={`px-3 py-1 rounded-full text-sm font-medium ${activeTab === tab
                     ? "bg-[#0D5C63] text-white"
                     : "text-gray-600 hover:bg-gray-200"
-                }`}
+                  }`}
               >
                 {tab}
               </button>
@@ -94,11 +94,10 @@ export const DoctorAppointmentMonth = () => {
             {week.days.map((date, i) => (
               <div
                 key={i}
-                className={`py-3 border-r border-[#E0E0E0] last:border-none ${
-                  date === selectedDate
+                className={`py-3 border-r border-[#E0E0E0] last:border-none ${date === selectedDate
                     ? "bg-[#0D5C63] text-white rounded-lg font-semibold"
                     : "bg-white text-gray-700"
-                }`}
+                  }`}
               >
                 {date}
               </div>

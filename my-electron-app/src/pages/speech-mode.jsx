@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 
 const socket = io("http://localhost:3000");
-export const SpeechMode = () => {
+export const SpeechMode =  () => {
   const [isTalking, setIsTalking] = useState(false);
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ export const SpeechMode = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 text-white font-poppins">
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 text-white font-poppins">
       <div className="flex flex-col items-center space-y-6 w-full max-w-md">
         <Lottie
           animationData={botTalking}

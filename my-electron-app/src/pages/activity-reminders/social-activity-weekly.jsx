@@ -1,89 +1,42 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Lock } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
-export const HealthWeekly = () => {
+export const SocialActivityWeekly = () => {
   const [activeView, setActiveView] = useState('Week');
   
   const weekDays = [
-    { 
-      day: 'MON', 
-      date: '21',
-      events: [
-        { time: '08:30', title: 'Ballroom dance' },
-        { time: '14:00', title: 'Yoga' }
-      ]
-    },
-    { 
-      day: 'TUE', 
-      date: '22',
-      events: [
-        { time: '10:00', title: 'Walk' }
-      ]
-    },
-    { 
-      day: 'WED', 
-      date: '23',
-      events: [
-        { time: '07:30', title: 'Yoga' },
-        { time: '16:00', title: 'Gym' }
-      ]
-    },
-    { 
-      day: 'THU', 
-      date: '24',
-      active: true,
-      events: [
-        { time: '08:30', title: 'Walk' },
-        { time: '10:00', title: 'Ballroom dance' },
-        { time: '16:00', title: 'Gym' }
-      ]
-    },
-    { 
-      day: 'FRI', 
-      date: '25',
-      events: [
-        { time: '14:00', title: 'Yoga' }
-      ]
-    },
-    { 
-      day: 'SAT', 
-      date: '26',
-      events: [
-        { time: '09:00', title: 'Ballroom dance' },
-        { time: '10:30', title: 'Walk' }
-      ]
-    },
-    { 
-      day: 'SUN', 
-      date: '27',
-      events: [
-        { time: '11:00', title: 'Health walk' }
-      ]
-    }
+    { day: 'MON', date: '21', events: [{ time: '14:00', title: 'Analog' }] },
+    { day: 'TUE', date: '22', events: [{ time: '10:30', title: 'Ceramics' }] },
+    { day: 'WED', date: '23', events: [{ time: '15:00', title: 'Card games' }] },
+    { day: 'THU', date: '24', events: [{ time: '14:00', title: 'Board games' }], active: true },
+    { day: 'FRI', date: '25', events: [] },
+    { day: 'SAT', date: '26', events: [{ time: '09:00', title: 'Yoga' }] },
+    { day: 'SUN', date: '27', events: [{ time: '11:00', title: 'Painting' }] }
   ];
 
   return (
-    <div className="min-h-screen bg-amber-50 p-4 flex items-center justify-center">
-      <div className="w-full max-w-3xl bg-gradient-to-br from-orange-50 to-amber-50 rounded-3xl shadow-lg p-6">
+    // <div className="min-h-screen bg-amber-50 p-4 flex items-center justify-center">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
+      <div className="w-full max-w-2xl bg-gradient-to-br from-orange-50 to-amber-50 rounded-3xl shadow-lg p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <button className="w-10 h-10 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-white hover:bg-gray-50 transition-colors">
+          <button className="w-10 h-10 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-white">
             <ChevronLeft className="w-5 h-5 text-gray-600" />
           </button>
           
           <div className="text-center">
             <div className="text-2xl font-bold text-gray-800">20:20</div>
-            <div className="text-sm font-semibold text-gray-700 mt-1">Health</div>
+            <div className="text-sm font-semibold text-gray-700 mt-1">Social</div>
           </div>
           
           <div className="flex gap-2">
-            <button className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center hover:bg-teal-700 transition-colors">
+            <button className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center">
               <div className="w-6 h-6 bg-teal-700 rounded-lg flex items-center justify-center">
                 <div className="w-4 h-3 bg-teal-500 rounded-sm"></div>
               </div>
             </button>
-            <button className="w-10 h-10 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-white hover:bg-gray-50 transition-colors">
-              <Lock className="w-5 h-5 text-gray-600" />
+            <button className="w-10 h-10 rounded-xl border-2 border-gray-300 flex items-center justify-center bg-white">
+              <Calendar className="w-5 h-5 text-gray-600" />
             </button>
           </div>
         </div>
@@ -94,10 +47,10 @@ export const HealthWeekly = () => {
             <button
               key={view}
               onClick={() => setActiveView(view)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-5 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 activeView === view
-                  ? 'bg-teal-600 text-white shadow-md'
-                  : 'bg-white text-gray-700 border border-gray-300 hover:border-gray-400'
+                  ? 'bg-teal-600 text-white'
+                  : 'bg-white text-gray-700 border border-gray-300'
               }`}
             >
               {view}
@@ -115,15 +68,15 @@ export const HealthWeekly = () => {
           {weekDays.map((day, index) => (
             <div
               key={index}
-              className={`rounded-2xl p-3 min-h-[200px] transition-all ${
+              className={`rounded-2xl p-3 min-h-[180px] transition-all ${
                 day.active 
-                  ? 'bg-teal-600 text-white shadow-lg' 
+                  ? 'bg-teal-600 text-white' 
                   : 'bg-white text-gray-700'
               }`}
             >
               {/* Day Header */}
               <div className="text-center mb-3">
-                <div className={`text-xs font-semibold mb-1 ${
+                <div className={`text-xs font-medium mb-1 ${
                   day.active ? 'text-teal-100' : 'text-gray-500'
                 }`}>
                   {day.day}
@@ -144,7 +97,7 @@ export const HealthWeekly = () => {
                     }`}>
                       {event.time}
                     </div>
-                    <div className={`font-semibold leading-tight ${
+                    <div className={`font-semibold ${
                       day.active ? 'text-white' : 'text-gray-700'
                     }`}>
                       {event.title}

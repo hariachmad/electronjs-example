@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 export const RootLayout = () => {
   const [isTalking, setIsTalking] = useState(false);
@@ -51,18 +51,17 @@ export const RootLayout = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="h-screen flex flex-col justify-between bg-transparent">
+      <div className="">
         <Outlet />
       </div>
-      <div className="flex flex-row items-center justify-center align-middle mb-10 bg-[#F9F6ED]">
+      <div className="fixed bottom-0 left-0 w-full bg-transparent flex justify-center my-5">
         <button
           onClick={handleClick}
-          className={`px-6 py-3 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 ${
-            isTalking
-              ? "bg-red-500 hover:bg-red-600 shadow-red-500/40"
-              : "bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/40"
-          }`}
+          className={`px-6 py-3 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 ${isTalking
+            ? "bg-red-500 hover:bg-red-600 shadow-red-500/40"
+            : "bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/40"
+            }`}
         >
           Speech
         </button>

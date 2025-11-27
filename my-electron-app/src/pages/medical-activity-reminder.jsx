@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 export const MedicalActivityReminder = () => {
     const navigate = useNavigate();
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#F9F6ED]">
+    // <div className="flex items-center justify-center min-h-screen bg-[#F9F6ED]">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
       <div className="w-[500px] bg-[#F9F6ED] rounded-3xl shadow-lg p-6 text-center border border-gray-200">
         {/* Header */}
         <div className="text-[#2D4A53] mb-4">

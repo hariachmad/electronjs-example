@@ -57,7 +57,8 @@ export const MyMedicineWeek = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF6EB] flex flex-col items-center p-6 rounded-[2rem] shadow-md max-w-md mx-auto relative">
+    // <div className="min-h-screen bg-[#FAF6EB] flex flex-col items-center p-6 rounded-[2rem] shadow-md max-w-md mx-auto relative">
+    <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
       {/* Header */}
       <div className="w-full flex justify-between items-center">
         <button className="p-2 bg-white rounded-full shadow">
@@ -89,14 +90,13 @@ export const MyMedicineWeek = () => {
           <button
             key={tab}
             onClick={() => {
-                setActiveTab(tab);
-                navigate(`/my-medicine-${tab.toLowerCase()}`);
+              setActiveTab(tab);
+              navigate(`/my-medicine-${tab.toLowerCase()}`);
             }}
-            className={`px-4 py-1 rounded-full border text-sm font-medium ${
-              activeTab === tab
+            className={`px-4 py-1 rounded-full border text-sm font-medium ${activeTab === tab
                 ? "bg-[#0D5C63] text-white"
                 : "bg-white text-[#0D5C63]"
-            }`}
+              }`}
           >
             {tab}
           </button>
@@ -111,21 +111,18 @@ export const MyMedicineWeek = () => {
         {weekData.map((day) => (
           <div
             key={day.day}
-            className={`bg-white rounded-xl p-2 shadow-sm flex flex-col items-center ${
-              day.day === "THU" ? "bg-[#E6F5F5]" : "bg-white"
-            }`}
+            className={`bg-white rounded-xl p-2 shadow-sm flex flex-col items-center ${day.day === "THU" ? "bg-[#E6F5F5]" : "bg-white"
+              }`}
           >
             <p
-              className={`font-semibold ${
-                day.day === "THU" ? "text-[#0D5C63]" : "text-gray-700"
-              }`}
+              className={`font-semibold ${day.day === "THU" ? "text-[#0D5C63]" : "text-gray-700"
+                }`}
             >
               {day.day}
             </p>
             <p
-              className={`text-xs ${
-                day.day === "THU" ? "text-[#0D5C63]" : "text-gray-500"
-              }`}
+              className={`text-xs ${day.day === "THU" ? "text-[#0D5C63]" : "text-gray-500"
+                }`}
             >
               {day.date}
             </p>
