@@ -13,6 +13,7 @@ const createWindow = () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    fullscreen : true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -26,7 +27,7 @@ const createWindow = () => {
   }
 }
 
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 socket.on("connect", () => {
   console.log("✅ Connected to Socket.IO server");
