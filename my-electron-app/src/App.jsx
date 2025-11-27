@@ -116,23 +116,31 @@ function App() {
           path: "/social-activity-monthly",
           element: <SocialActivityMonthly />,
         },
+        {
+          path: "/social-activity-specific-day",
+          element: <SocialActivityToday />,
+        },
 
         // ======================
         // VISIT
         // ======================
 
         {
-          path: "/visit-today",
+          path: "/visit-except-doctor-schedule-today",
           element: <VisitToday />,
         },
         {
-          path: "/visit-weekly",
+          path: "/visit-except-doctor-schedule-weekly",
           element: <VisitWeekly />,
         },
         {
-          path: "/social-activity-monthly",
+          path: "/visit-except-doctor-schedule-monthly",
           element: <VisitMonthly />,
-        }
+        },
+        {
+          path: "/visit-except-doctor-specific-day",
+          element: <VisitToday />,
+        },
       ]
     },
   ]);
