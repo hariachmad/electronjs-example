@@ -18,6 +18,9 @@ import { HealthMonthly } from "./pages/activity-reminders/health-monthly";
 import { SocialActivityToday } from "./pages/activity-reminders/social-activity-today";
 import { SocialActivityWeekly } from "./pages/activity-reminders/social-activity-weekly";
 import { SocialActivityMonthly } from "./pages/activity-reminders/social-activity-monthly";
+import VisitToday from "./pages/activity-reminders/visit-today";
+import VisitWeekly from "./pages/activity-reminders/visit-weekly";
+import VisitMonthly from "./pages/activity-reminders/visit-monthly";
 
 
 function App() {
@@ -110,8 +113,25 @@ function App() {
           element: <SocialActivityWeekly />,
         },
         {
-          path: "/social-activity-monthlys",
+          path: "/social-activity-monthly",
           element: <SocialActivityMonthly />,
+        },
+
+        // ======================
+        // VISIT
+        // ======================
+
+        {
+          path: "/visit-today",
+          element: <VisitToday />,
+        },
+        {
+          path: "/visit-weekly",
+          element: <VisitWeekly />,
+        },
+        {
+          path: "/social-activity-monthly",
+          element: <VisitMonthly />,
         }
       ]
     },
