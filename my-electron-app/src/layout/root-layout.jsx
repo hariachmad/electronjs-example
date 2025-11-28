@@ -52,15 +52,15 @@ export const RootLayout = () => {
 
     socket.on("navigateCommand", (data) => {
       switch (data) {
-        case "fall-detection":
+        case "/fall":
           setFallDetected(true);
           setHelpDetected(false);
           break;
-        case "help-detection":
+        case "/help":
           setFallDetected(false);
           setHelpDetected(true);
           break;
-        case "ok":
+        case "/i-am-ok":
           setFallDetected(false);
           setHelpDetected(false);
           break;
@@ -72,8 +72,8 @@ export const RootLayout = () => {
     return () => {
       socket.off("connect");
       socket.off("connect_error");
-      socket.off("fall-detection");
-      socket.off("help-detection");
+      socket.off("fall");
+      socket.off("help");
       socket.off("ok");
     };
   }, []);

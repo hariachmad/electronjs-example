@@ -13,7 +13,7 @@ const createWindow = () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    // fullscreen : true,
+    fullscreen : true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -39,7 +39,7 @@ socket.on("disconnect", () => {
 
 socket.on("navigateCommand", (page) => {
   console.log("Receive navigate command:", page);
-  const blacklistPath = ["fall-detection", "help-detection","ok"];
+  const blacklistPath = ["/fall", "/help","/i-am-ok"];
   if (blacklistPath.includes(page)) return;
   if (win) {
     win.webContents.send("navigate-page", page);
