@@ -4,7 +4,7 @@ import botTalking from "../assets/animations/bot.json";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+const socket = io("http://localhost:3000");
 export const SpeechMode =  () => {
   const [isTalking, setIsTalking] = useState(false);
   const navigate = useNavigate();

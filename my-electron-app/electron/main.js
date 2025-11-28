@@ -13,7 +13,7 @@ const createWindow = () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    fullscreen : true,
+    // fullscreen : true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -27,7 +27,7 @@ const createWindow = () => {
   }
 }
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+const socket = io("http://localhost:3000");
 
 socket.on("connect", () => {
   console.log("✅ Connected to Socket.IO server");
@@ -39,6 +39,8 @@ socket.on("disconnect", () => {
 
 socket.on("navigateCommand", (page) => {
   console.log("Receive navigate command:", page);
+  const blacklistPath = ["fall-detection", "help-detection","ok"];
+  if (blacklistPath.includes(page)) return;
   if (win) {
     win.webContents.send("navigate-page", page);
   }

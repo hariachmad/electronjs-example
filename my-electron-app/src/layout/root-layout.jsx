@@ -1,12 +1,23 @@
-import { useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
+import { FallDetectionContext } from "../store/FallDetectionContext";
+import { Modal } from 'react-responsive-modal';
+import FallDetected from "../pages/fall-detection/fall-detected";
+import { HelpDetectionContext } from "../store/HelpDetectedContext";
+import HelpDetected from "../pages/fall-detection/help-detected";
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+const socket = io("http://localhost:3000", {
+  transports: ["websocket"],
+  autoConnect: true,
+});
+
 
 export const RootLayout = () => {
   const [isTalking, setIsTalking] = useState(false);
   const navigate = useNavigate();
+  const { fallDetected, setFallDetected } = useContext(FallDetectionContext);
+  const { helpDetected, setHelpDetected } = useContext(HelpDetectionContext);
 
   const handleClick = () => {
     setIsTalking(!isTalking);
@@ -27,45 +38,78 @@ export const RootLayout = () => {
   }, [isTalking]);
 
   useEffect(() => {
-    // window.electronAPI.onReply((data) => {
-    //   console.log("Balasan dari main:", data);
-    // });
-
     socket.on("connect", () => {
-      console.log("✅ Terhubung ke server:", socket.id);
+      console.log("Connected to socket:", socket.id);
     });
 
-    socket.on("disconnect", () => {
-      console.log("❌ Terputus dari server");
+    socket.on("connect_error", (err) => {
+      console.log("Socket connect error:", err.message);
     });
 
-    socket.on("receive_message", (data) => {
-      console.log("📩 Pesan dari server:", data);
+    socket.onAny((event, data) => {
+      console.log("EVENT MASUK:", event, data);
+    });
+
+    socket.on("navigateCommand", (data) => {
+      switch (data) {
+        case "fall-detection":
+          setFallDetected(true);
+          setHelpDetected(false);
+          break;
+        case "help-detection":
+          setFallDetected(false);
+          setHelpDetected(true);
+          break;
+        case "ok":
+          setFallDetected(false);
+          setHelpDetected(false);
+          break;
+        default:
+          break;
+      }
     });
 
     return () => {
       socket.off("connect");
-      socket.off("disconnect");
-      socket.off("receive_message");
+      socket.off("connect_error");
+      socket.off("fall-detection");
+      socket.off("help-detection");
+      socket.off("ok");
     };
   }, []);
 
   return (
-    <div className="h-screen flex flex-col justify-between bg-transparent">
-      <div className="">
-        <Outlet />
+    <>
+      <div className="h-screen flex flex-col justify-between bg-transparent">
+        <div className="">
+          {
+            fallDetected ? <Modal open={fallDetected} onClose={() => setFallDetected(false)} center >
+              <FallDetected />
+            </Modal> : <Outlet />
+          }
+          {
+            helpDetected ? <Modal open={helpDetected} onClose={() => setHelpDetected(false)} center >
+              <HelpDetected />
+            </Modal> : <></>
+          }
+        </div>
+        <div className="fixed bottom-0 left-0 w-full bg-transparent flex justify-center my-5 gap-5">
+          <button
+            onClick={handleClick}
+            className={`px-6 py-3 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 ${isTalking
+              ? "bg-red-500 hover:bg-red-600 shadow-red-500/40"
+              : "bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/40"
+              }`}
+          >SPEECH</button>
+          <button
+            onClick={() => { setFallDetected(true) }}
+            className={`px-6 py-3 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 ${isTalking
+              ? "bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/40"
+              : "bg-red-500 hover:bg-red-600 shadow-red-500/40"
+              }`}
+          >I'M FALLING</button>
+        </div>
       </div>
-      <div className="fixed bottom-0 left-0 w-full bg-transparent flex justify-center my-5">
-        <button
-          onClick={handleClick}
-          className={`px-6 py-3 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 ${isTalking
-            ? "bg-red-500 hover:bg-red-600 shadow-red-500/40"
-            : "bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/40"
-            }`}
-        >
-          Speech
-        </button>
-      </div>
-    </div>
+    </>
   );
 };

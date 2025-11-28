@@ -24,6 +24,7 @@ import VisitMonthly from "./pages/activity-reminders/visit-monthly";
 
 
 function App() {
+
   const router = createBrowserRouter([
     {
       element: <RootLayout />,
@@ -105,19 +106,19 @@ function App() {
         // HEALTH
         // ======================
         {
-          path: "/social-activity-today",
+          path: "/social-activity-schedule-today",
           element: <SocialActivityToday />,
         },
         {
-          path: "/social-activity-weekly",
+          path: "/social-activity-schedule-weekly",
           element: <SocialActivityWeekly />,
         },
         {
-          path: "/social-activity-monthly",
+          path: "/social-activity-schedule-monthly",
           element: <SocialActivityMonthly />,
         },
         {
-          path: "/social-activity-specific-day",
+          path: "/social-activity-schedule-specific-day",
           element: <SocialActivityToday />,
         },
 
@@ -138,7 +139,7 @@ function App() {
           element: <VisitMonthly />,
         },
         {
-          path: "/visit-except-doctor-specific-day",
+          path: "/visit-except-doctor-schedule-specific-day",
           element: <VisitToday />,
         },
       ]
