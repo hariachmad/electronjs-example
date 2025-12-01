@@ -15,6 +15,7 @@ const socket = io("http://localhost:3000", {
 
 export const RootLayout = () => {
   const [isTalking, setIsTalking] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const navigate = useNavigate();
   const { fallDetected, setFallDetected } = useContext(FallDetectionContext);
   const { helpDetected, setHelpDetected } = useContext(HelpDetectionContext);
@@ -48,6 +49,19 @@ export const RootLayout = () => {
 
     socket.onAny((event, data) => {
       console.log("EVENT MASUK:", event, data);
+    });
+
+    socket.on("recordingState", (data) => {
+      switch (data) {
+        case "ON":
+          setIsRecording(true);
+          break;
+        case "OFF":
+          setIsRecording(false);
+          break;
+        default:
+          break;
+      }
     });
 
     socket.on("navigateCommand", (data) => {
@@ -94,20 +108,14 @@ export const RootLayout = () => {
           }
         </div>
         <div className="fixed bottom-0 left-0 w-full bg-transparent flex justify-center my-5 gap-5">
-          <button
-            onClick={handleClick}
-            className={`px-6 py-3 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 ${isTalking
-              ? "bg-red-500 hover:bg-red-600 shadow-red-500/40"
-              : "bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/40"
-              }`}
-          >SPEECH</button>
-          <button
-            onClick={() => { setFallDetected(true) }}
-            className={`px-6 py-3 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 ${isTalking
-              ? "bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/40"
-              : "bg-red-500 hover:bg-red-600 shadow-red-500/40"
-              }`}
-          >I'M FALLING</button>
+          <div className={`flex items-center gap-2 px-4 py-3 rounded-lg ${isRecording ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'
+            }`}>
+            <div className={`w-3 h-3 rounded-full ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-gray-400'
+              }`}></div>
+            <span className="font-medium">
+              {isRecording ? 'Recording' : 'Not Recording'}
+            </span>
+          </div>
         </div>
       </div>
     </>
