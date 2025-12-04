@@ -6,6 +6,9 @@ import io from "socket.io-client";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.commandLine.appendSwitch("enable-features", "UseOzonePlatform");
+app.commandLine.appendSwitch("ozone-platform", "wayland");
+
 let win;
 
 const createWindow = () => {
@@ -13,22 +16,26 @@ const createWindow = () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    fullscreen : true,
-    kiosk: false,
+    fullscreen : false,
+        frame : false,
+        autoHideMenuBar : true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
 
-  if (!app.isPackaged) {
+if (!app.isPackaged) {
     win.loadURL('http://localhost:5173');
   } else {
-    // Saat build, load dari file hasil build React
     win.loadFile(path.join(__dirname, '../dist/index.html'));
   }
-}
 
-const socket = io("http://localhost:3000");
+win.once("ready-to-show", () => {
+    win.maximize();          // tampil dulu (aman di Wayland)
+    win.setFullScreen(true); // baru fullscreen
+  });
+};
+const socket = io("http://192.168.1.100:3000");
 
 socket.on("connect", () => {
   console.log("✅ Connected to Socket.IO server");
