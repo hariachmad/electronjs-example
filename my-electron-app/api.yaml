@@ -5,7 +5,7 @@ info:
   description: Elderly care testing event project documentation.
 servers:
   default:
-    host: 'localhost:3000'
+    host: 'http://164.92.150.224:3001'
     protocol: socketio
 channels:
   navigateCommand:
