@@ -46,6 +46,8 @@ const socket = io(process.env.SOCKET_IO_SERVER, {
   }
 });
 
+console.log("SOCKET_IO_SERVER : ", process.env.SOCKET_IO_SERVER);
+
 socket.on("connect", () => {
   console.log("✅ Connected to Socket.IO server");
 });
