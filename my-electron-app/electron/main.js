@@ -147,6 +147,6 @@ ipcMain.on('message-from-renderer', (event, data) => {
 });
 
 
-const increaseValue = (value) => value + 20;
+const increaseValue = (value) => value + 10;
 
-const decreaseValue = (value) => value - 20;
+const decreaseValue = (value) => value - 10;

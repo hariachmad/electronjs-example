@@ -8,6 +8,9 @@ import { HelpDetectionContext } from "../store/HelpDetectedContext";
 import HelpDetected from "../pages/fall-detection/help-detected";
 import { SleepScreenContext } from "../store/SleepScreenContext";
 import SleepScreen from "../pages/sleep/sleep-screen";
+import { Home, Sun, Volume2 } from 'lucide-react';
+import { useVolumeContext } from "../context/volume-context";
+import { useBrightnessContext } from "../context/brightness-context";
 
 const socket = io(window.env.SOCKET_IO_SERVER, {
   transports: ["websocket"],
@@ -25,6 +28,9 @@ export const RootLayout = () => {
   const { fallDetected, setFallDetected } = useContext(FallDetectionContext);
   const { helpDetected, setHelpDetected } = useContext(HelpDetectionContext);
   const { sleepScreen, setSleepScreen } = useContext(SleepScreenContext);
+  const {volume, setVolume} = useVolumeContext();
+  const {brightness, setBrightness} = useBrightnessContext();
+
 
   const handleClick = () => {
     setIsTalking(!isTalking);
@@ -85,11 +91,11 @@ export const RootLayout = () => {
       setHelpDetected(false);
     })
 
-    socket.on("SLEEP",(data)=>{
+    socket.on("SLEEP", (data) => {
       setSleepScreen(true);
     })
 
-    socket.on("PING_DEVICE_UP",(data)=>{
+    socket.on("PING_DEVICE_UP", (data) => {
       setSleepScreen(false);
     })
 
@@ -108,6 +114,48 @@ export const RootLayout = () => {
   return (
     <>
       <div className="h-screen flex flex-col justify-between bg-transparent">
+        <div className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+          <div className="flex items-center justify-between px-6 py-4">
+            <button onClick={()=>{
+              navigate("/reminder")
+            }} 
+              className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              <Home size={20} />
+              <span className="font-medium">Home</span>
+            </button>
+
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-lg">
+                <Sun size={20} className="text-yellow-500" />
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value={brightness}
+                  className="w-32 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-yellow-500"
+                />
+                <span className="text-sm font-medium text-gray-700 w-10">
+                  {brightness}%
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-lg">
+                <Volume2 size={20} className="text-blue-500" />
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={volume}
+                  className="w-32 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                />
+                <span className="text-sm font-medium text-gray-700 w-10">
+                  {volume}%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="">
           {
             fallDetected ? <Modal open={fallDetected} onClose={() => setFallDetected(false)} center >
