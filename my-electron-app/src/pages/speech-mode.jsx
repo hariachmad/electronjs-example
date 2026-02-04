@@ -4,7 +4,7 @@ import botTalking from "../assets/animations/bot.json";
 import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 
-const socket = io("http://localhost:3000");
+const socket = io(window.env.SOCKET_IO_SERVER);
 export const SpeechMode =  () => {
   const [isTalking, setIsTalking] = useState(false);
   const navigate = useNavigate();
@@ -20,10 +20,6 @@ export const SpeechMode =  () => {
   }, [isTalking]);
 
   useEffect(() => {
-    // window.electronAPI.onReply((data) => {
-    //   console.log("Balasan dari main:", data);
-    // });
-
     socket.on("connect", () => {
       console.log("✅ Terhubung ke server:", socket.id);
     });

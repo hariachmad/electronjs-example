@@ -11,6 +11,7 @@
     "start": "electron electron/main.js"
   },
   "dependencies": {
+    "@asyncapi/html-template": "^3.2.0",
     "@tailwindcss/vite": "^4.1.14",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.552.0",

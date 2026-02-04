@@ -3,7 +3,7 @@ import io from "socket.io-client";
 
 export const HelpDetectionContext = createContext({});
 
-const socket = io("http://localhost:3000");
+const socket = io(window.EncodedVideoChunk.SOCKET_IO_SERVER);
 
 export const HelpDetectionProvider = ({ children }) => {
     const [helpDetected, setHelpDetected] = useState(false);

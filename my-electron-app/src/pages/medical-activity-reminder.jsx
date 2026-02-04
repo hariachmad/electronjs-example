@@ -1,8 +1,24 @@
 import { Volume2, Sun } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useVolumeContext } from '../context/volume-context';
+import { useBrightnessContext } from '../context/brightness-context';
 
 export const MedicalActivityReminder = () => {
     const navigate = useNavigate();
+    const {volume, setVolume} = useVolumeContext();
+    const {brightness, setBrightness} = useBrightnessContext();
+
+    const handleVolumeChange = (e) => {
+        setVolume(e.target.value);
+        window.electronAPI.sendVolumeChange(e.target.value);
+    };  
+
+    const handleBrightnessChange = (e) => {
+        setBrightness(e.target.value);
+        console.log(e.target.value);
+        window.electronAPI.sendBrightnessChange(e.target.value);
+    };
+
   return (
     // <div className="flex items-center justify-center min-h-screen bg-[#F9F6ED]">
     <div className="h-screen flex items-center justify-center bg-[#F9F6ED] text-white font-poppins">
@@ -47,11 +63,11 @@ export const MedicalActivityReminder = () => {
         <div className="flex justify-around items-center text-[#2D4A53]">
           <div className="flex items-center gap-2">
             <Volume2 />
-            <input type="range" min="0" max="100" className="w-24 accent-[#2D4A53]" />
+            <input value={volume} onChange={handleVolumeChange} type="range" min="0" max="100" className="w-24 accent-[#2D4A53]" />
           </div>
           <div className="flex items-center gap-2">
             <Sun />
-            <input type="range" min="0" max="100" className="w-24 accent-[#2D4A53]" />
+            <input value={brightness} onChange={handleBrightnessChange} type="range" min="0" max="100" className="w-24 accent-[#2D4A53]" />
           </div>
         </div>
       </div>

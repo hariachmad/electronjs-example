@@ -1,4 +1,4 @@
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import { FallDetectionContext } from "../store/FallDetectionContext";
@@ -6,10 +6,15 @@ import { Modal } from 'react-responsive-modal';
 import FallDetected from "../pages/fall-detection/fall-detected";
 import { HelpDetectionContext } from "../store/HelpDetectedContext";
 import HelpDetected from "../pages/fall-detection/help-detected";
+import { SleepScreenContext } from "../store/SleepScreenContext";
+import SleepScreen from "../pages/sleep/sleep-screen";
 
-const socket = io("http://localhost:3000", {
+const socket = io(window.env.SOCKET_IO_SERVER, {
   transports: ["websocket"],
   autoConnect: true,
+  auth: {
+    userId: "frontend-ui"
+  }
 });
 
 
@@ -19,6 +24,7 @@ export const RootLayout = () => {
   const navigate = useNavigate();
   const { fallDetected, setFallDetected } = useContext(FallDetectionContext);
   const { helpDetected, setHelpDetected } = useContext(HelpDetectionContext);
+  const { sleepScreen, setSleepScreen } = useContext(SleepScreenContext);
 
   const handleClick = () => {
     setIsTalking(!isTalking);
@@ -51,7 +57,8 @@ export const RootLayout = () => {
       console.log("EVENT MASUK:", event, data);
     });
 
-    socket.on("recordingState", (data) => {
+    socket.on("LISTENING", (data) => {
+      console.log("LISTENING : ", data);
       switch (data) {
         case "ON":
           setIsRecording(true);
@@ -64,31 +71,37 @@ export const RootLayout = () => {
       }
     });
 
-    socket.on("navigateCommand", (data) => {
-      switch (data) {
-        case "/fall":
-          setFallDetected(true);
-          setHelpDetected(false);
-          break;
-        case "/help":
-          setFallDetected(false);
-          setHelpDetected(true);
-          break;
-        case "/i-am-ok":
-          setFallDetected(false);
-          setHelpDetected(false);
-          break;
-        default:
-          break;
-      }
-    });
+    socket.on("INCIDENT_FALL_DOWN_DETECTED", (data) => {
+      setFallDetected(true);
+      setHelpDetected(false);
+    })
+
+    socket.on("INCIDENT_HELP_EVENT_DETECTED", (data) => {
+      setFallDetected(true);
+      setHelpDetected(false);
+    })
+    socket.on("i-am-ok", (data) => {
+      setFallDetected(false);
+      setHelpDetected(false);
+    })
+
+    socket.on("SLEEP",(data)=>{
+      setSleepScreen(true);
+    })
+
+    socket.on("PING_DEVICE_UP",(data)=>{
+      setSleepScreen(false);
+    })
 
     return () => {
       socket.off("connect");
       socket.off("connect_error");
-      socket.off("fall");
-      socket.off("help");
-      socket.off("ok");
+      socket.off("LISTEN");
+      socket.off("INCIDENT_FALL_DOWN_DETECTED");
+      socket.off("INCIDENT_HELP_EVENT_DETECTED");
+      socket.off("i-am-ok");
+      socket.off("SLEEP");
+      socket.off("PING_DEVICE_UP");
     };
   }, []);
 
@@ -104,6 +117,11 @@ export const RootLayout = () => {
           {
             helpDetected ? <Modal open={helpDetected} onClose={() => setHelpDetected(false)} center >
               <HelpDetected />
+            </Modal> : <></>
+          }
+          {
+            sleepScreen ? <Modal open={sleepScreen} onClose={() => setSleepScreen(false)} center >
+              <SleepScreen />
             </Modal> : <></>
           }
         </div>

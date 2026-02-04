@@ -50,55 +50,47 @@ function App() {
         // MEDICINE SCHEDULE
         // ======================
         {
-          path: "/medicine-schedule-today",
+          path: "/SHOW_MEDICINE_SCHEDULE_SPECIFIC_DAY",
           element: <MyMedicineToday />,
         },
         {
-          path: "/medicine-schedule-weekly",
+          path: "/SHOW_MEDICINE_SCHEDULE_WEEK",
           element: <MyMedicineWeek />,
         },
         {
-          path: "/medicine-schedule-monthly",
+          path: "/SHOW_MEDICINE_SCHEDULE_MONTH",
           element: <MyMedicineMonth />,
-        },
-        {
-          path: "/medicine-schedule-specific-day",
-          element: <MyMedicineToday />,
         },
 
         // ======================
         // DOCTOR APPOINTMENT
         // ======================
         {
-          path: "/doctor-appointment-schedule-today",
+          path: "/SHOW_APPOINTMENT_SCHEDULE_SPECIFIC_DAY",
           element: <DoctorAppointmentToday />,
         },
         {
-          path: "/doctor-appointment-schedule-weekly",
+          path: "SHOW_APPOINTMENT_SCHEDULE_WEEK",
           element: <DoctorAppointmentWeek />,
         },
         {
-          path: "/doctor-appointment-schedule-monthly",
+          path: "/SHOW_APPOINTMENT_SCHEDULE_MONTH",
           element: <DoctorAppointmentMonthly />,
-        },
-        {
-          path: "/doctor-appointment-schedule-specific-day",
-          element: <DoctorAppointmentToday />,
         },
 
         // ======================
         // HEALTH
         // ======================
         {
-          path: "/health-today",
+          path: "/SHOW_HEALTH_ACTIVITY_SPECIFIC_DAY",
           element: <HealthToday />,
         },
         {
-          path: "/health-weekly",
+          path: "/SHOW_HEALTH_ACTIVITY_WEEK",
           element: <HealthWeekly />,
         },
         {
-          path: "/health-monthly",
+          path: "/SHOW_HEALTH_ACTIVITY_MONTH",
           element: <HealthMonthly />,
         },
 
@@ -106,20 +98,16 @@ function App() {
         // HEALTH
         // ======================
         {
-          path: "/social-activity-schedule-today",
+          path: "/SHOW_SOCIAL_ACTIVITY_SPECIFIC_DAY",
           element: <SocialActivityToday />,
         },
         {
-          path: "/social-activity-schedule-weekly",
+          path: "/SHOW_SOCIAL_ACTIVITY_WEEK",
           element: <SocialActivityWeekly />,
         },
         {
-          path: "/social-activity-schedule-monthly",
+          path: "/SHOW_SOCIAL_ACTIVITY_MONTH",
           element: <SocialActivityMonthly />,
-        },
-        {
-          path: "/social-activity-schedule-specific-day",
-          element: <SocialActivityToday />,
         },
 
         // ======================
@@ -127,20 +115,16 @@ function App() {
         // ======================
 
         {
-          path: "/visit-except-doctor-schedule-today",
+          path: "/SHOW_VISITS_WEEK",
           element: <VisitToday />,
         },
         {
-          path: "/visit-except-doctor-schedule-weekly",
+          path: "/SHOW_VISITS_MONTH",
           element: <VisitWeekly />,
         },
         {
-          path: "/visit-except-doctor-schedule-monthly",
+          path: "/SHOW_VISITS_SPECIFIC_DAY",
           element: <VisitMonthly />,
-        },
-        {
-          path: "/visit-except-doctor-schedule-specific-day",
-          element: <VisitToday />,
         },
       ]
     },
