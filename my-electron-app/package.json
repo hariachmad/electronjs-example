@@ -14,6 +14,7 @@
     "@asyncapi/html-template": "^3.2.0",
     "@tailwindcss/vite": "^4.1.14",
     "dotenv": "^17.2.3",
+    "express": "^5.2.1",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.552.0",
     "react": "^19.1.1",

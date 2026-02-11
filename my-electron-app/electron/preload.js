@@ -14,11 +14,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on("navigate-page", (event, page) => callback(page)),
   onVolumeChange: (callback) => ipcRenderer.on("volume-change", (event, volume) => callback(volume)),
   onBrightnessChange: (callback) => {
+    console.log("onBrightnessChange");
     ipcRenderer.on("brightness-change", (event, level) => {
       callback(level);
     }
     )
-  }
+  },
+  onButtonHelpClick : (callback) => ipcRenderer.on("button-help-click", () => callback()),
+  onButtonOkClick : (callback) => ipcRenderer.on("button-ok-click", () => callback()),
 });
 
 contextBridge.exposeInMainWorld('env', {

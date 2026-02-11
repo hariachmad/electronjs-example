@@ -9,6 +9,7 @@ export const BrightnessProvider = ({ children }) => {
     if (!window.electronAPI?.onBrightnessChange) return;
 
     const unsubscribe = window.electronAPI.onBrightnessChange((value) => {
+      console.log("setBrightness value", value);
       if (value < 0 || value > 100) {
         return;
       }

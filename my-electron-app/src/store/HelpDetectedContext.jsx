@@ -8,14 +8,6 @@ const socket = io(window.EncodedVideoChunk.SOCKET_IO_SERVER);
 export const HelpDetectionProvider = ({ children }) => {
     const [helpDetected, setHelpDetected] = useState(false);
     useEffect(() => {
-        socket.on("help-detection", () => {
-            setHelpDetected(true);
-        });
-
-        socket.on("ok", () => {
-            setHelpDetected(false);
-        });
-
         return () => {
         };
     }, [helpDetected]);

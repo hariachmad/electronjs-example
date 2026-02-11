@@ -4,6 +4,12 @@ import { fileURLToPath } from 'url';
 import { io } from "socket.io-client";
 import { pages } from '../constants/pages.js';
 import dotenv from 'dotenv'
+import express from "express";
+
+const server = express();
+
+server.get("/health", (req, res) => { res.status(200).json({ status: "ready"}); });
+server.listen(3001, () => { console.log("Health check server running on port 3001"); });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,7 +20,6 @@ app.commandLine.appendSwitch("ozone-platform", "wayland");
 dotenv.config({ path: path.join(__dirname,'..','..', '.env') })
 
 let win;
-let flag = "INCREASE"
 
 const createWindow = () => {
 
@@ -59,55 +64,40 @@ socket.on("disconnect", () => {
 //VOLUME
 socket.on("INCREASE_VOLUME", (msg) => {
   console.log("INCREASE_VOLUME : ", msg);
-  flag = "INCREASE"
   socket.emit("VOLUME_GET", msg)
 });
 
 socket.on("DECREASE_VOLUME", (msg) => {
   console.log("DECREASE_VOLUME : ", msg);
-  flag = "DECREASE"
   socket.emit("VOLUME_GET", msg)
 });
 
 socket.on("VOLUME_GET", (msg) => {
-  let result;
-  if (flag === "INCREASE") {
-    result = increaseValue(msg);
-  } else {
-    result = decreaseValue(msg);
-  }
-
-  win.webContents.send("volume-change", result);
-  socket.emit("VOLUME_SET", result, (ackFromClient) => {
-    const result2 = { volume: ackFromClient }
-    console.log("ACK INCREASE VOLUME FROM RASPBERRY : ", result2);
-  });
+  win.webContents.send("volume-change", msg);
+  socket.emit("VOLUME_SET", msg);
 })
+
+socket.on("VOLUME_SET", (msg) => {
+  console.log("BRIGHTNESS_SET : ", msg);
+  socket.emit("VOLUME_SET", msg);
+});
 
 
 //BRIGHTNESS
 socket.on("INCREASE_BRIGHTNESS", (msg) => {
   console.log("INCREASE_BRIGHTNESS : ", msg);
-  flag = "INCREASE"
   socket.emit("BRIGHTNESS_GET", msg)
 });
 
 socket.on("DECREASE_BRIGHTNESS", (msg) => {
   console.log("DECREASE_BRIGHTNESS : ", msg);
-  flag = "DECREASE"
   socket.emit("BRIGHTNESS_GET", msg)
 });
 
 socket.on("BRIGHTNESS_GET", (msg) => {
-  let result;
-  if (flag === "INCREASE") {
-    result = increaseValue(msg);
-  } else {
-    result = decreaseValue(msg);
-  }
 
-  win.webContents.send("brightness-change", result);
-  socket.emit("BRIGHTNESS_SET", result);
+  win.webContents.send("brightness-change", parseInt(msg));
+  socket.emit("BRIGHTNESS_SET", msg);
 })
 
 socket.on("BRIGHTNESS_SET", (msg) => {
@@ -148,7 +138,10 @@ ipcMain.on('message-from-renderer', (event, data) => {
   event.reply('reply-from-main', 'Halo dari main process!');
 });
 
+ipcMain.on("button-help-click",(event,data)=>{
+  socket.emit("INCIDENT_HELP_EVENT_DETECTED_ACK", data);
+})
 
-const increaseValue = (value) => value + 10;
-
-const decreaseValue = (value) => value - 10;
+ipcMain.on("button-ok-click",(event,data)=>{
+  socket.emit("i_am_ok_ack", data);
+})

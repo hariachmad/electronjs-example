@@ -8,7 +8,7 @@ import { HelpDetectionContext } from "../store/HelpDetectedContext";
 import HelpDetected from "../pages/fall-detection/help-detected";
 import { SleepScreenContext } from "../store/SleepScreenContext";
 import SleepScreen from "../pages/sleep/sleep-screen";
-import { Home, Sun, Volume2 } from 'lucide-react';
+import { Home, Sun, Volume2, Bot } from 'lucide-react';
 import { useVolumeContext } from "../context/volume-context";
 import { useBrightnessContext } from "../context/brightness-context";
 
@@ -28,8 +28,9 @@ export const RootLayout = () => {
   const { fallDetected, setFallDetected } = useContext(FallDetectionContext);
   const { helpDetected, setHelpDetected } = useContext(HelpDetectionContext);
   const { sleepScreen, setSleepScreen } = useContext(SleepScreenContext);
-  const {volume, setVolume} = useVolumeContext();
-  const {brightness, setBrightness} = useBrightnessContext();
+  const { volume, setVolume } = useVolumeContext();
+  const { brightness, setBrightness } = useBrightnessContext();
+  const [ robotStatus, setRobotStatus ] = useState("ready");
 
 
   const handleClick = () => {
@@ -78,17 +79,22 @@ export const RootLayout = () => {
     });
 
     socket.on("INCIDENT_FALL_DOWN_DETECTED", (data) => {
+      console.log("INCIDENT_FALL_DOWN_DETECTED")
       setFallDetected(true);
       setHelpDetected(false);
     })
 
     socket.on("INCIDENT_HELP_EVENT_DETECTED", (data) => {
-      setFallDetected(true);
-      setHelpDetected(false);
+      setFallDetected(false);
+      setHelpDetected(true);
+      socket.emit("INCIDENT_HELP_EVENT_DETECTED_ACK");
     })
-    socket.on("i-am-ok", (data) => {
+
+    socket.on("i_am_ok", (data) => {
+      console.log("i_am_ok");
       setFallDetected(false);
       setHelpDetected(false);
+      socket.emit("i_am_ok_ack");
     })
 
     socket.on("SLEEP", (data) => {
@@ -97,6 +103,16 @@ export const RootLayout = () => {
 
     socket.on("PING_DEVICE_UP", (data) => {
       setSleepScreen(false);
+    })
+
+    socket.on("SPEECH_MODULE_READY", () => {
+      console.log("SPEECH_MODULE_READY");
+      setRobotStatus("ready");
+    });
+
+    socket.on("SPEECH_MODULE_PROCESS", () => {
+      console.log("SPEECH_MODULE_PROCESS");
+      setRobotStatus("processing");
     })
 
     return () => {
@@ -116,9 +132,9 @@ export const RootLayout = () => {
       <div className="h-screen flex flex-col justify-between bg-transparent">
         <div className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
           <div className="flex items-center justify-between px-6 py-4">
-            <button onClick={()=>{
+            <button onClick={() => {
               navigate("/reminder")
-            }} 
+            }}
               className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
             >
               <Home size={20} />
@@ -126,6 +142,17 @@ export const RootLayout = () => {
             </button>
 
             <div className="flex items-center gap-6">
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg ${robotStatus === "ready"
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-orange-100 text-orange-700'
+                }`}>
+                <Bot size={20} className={robotStatus === "processing" ? "animate-pulse" : ""} />
+                <span className="font-medium">
+                  {robotStatus === "ready" ? 'Robot Ready' : 'Processing...'}
+                </span>
+                <div className={`w-2 h-2 rounded-full ${robotStatus === "ready" ? 'bg-green-500' : 'bg-orange-500 animate-pulse'
+                  }`}></div>
+              </div>
               <div className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-lg">
                 <Sun size={20} className="text-yellow-500" />
                 <input
